@@ -1,0 +1,39 @@
+.loader-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.loader-div {
+  height: fit-content;
+  padding: 1.25rem;
+  background-color: #4f46e5;
+  border-radius: 9999px;
+}
+
+.loader-svg {
+  color: #ffffff;
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-opacity-25 {
+  opacity: 0.25;
+}
+
+.loader-opacity-75 {
+  opacity: 0.75;
+}

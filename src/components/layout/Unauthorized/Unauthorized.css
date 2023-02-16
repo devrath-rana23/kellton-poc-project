@@ -1,0 +1,66 @@
+body {
+  padding: 0;
+}
+
+.authBody {
+  height: 100vh;
+  display: flex;
+}
+
+.rightSection {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.signInSection {
+  display: flex;
+  flex-direction: column;
+  margin-top: 232px;
+}
+
+.poc-heading-container {
+  align-self: center;
+}
+
+.poc-heading {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  text-align: center;
+  color: #0d769d;
+}
+
+.logoSection {
+  margin-bottom: 56px;
+}
+
+.logo {
+  width: 92px;
+  height: 70px;
+}
+
+.leftSection {
+  flex: 1;
+  background: linear-gradient(211.35deg, #0d769d 11.53%, #00b6d9 116.72%);
+}
+
+@media screen and (max-width: 780px) {
+  /* Safari 6.1+ */
+  .rightSection {
+    -webkit-order: 1;
+    order: 1;
+  }
+
+  .leftSection {
+    -webkit-order: 2;
+    order: 2;
+  }
+
+  .authBody {
+    flex-direction: column;
+  }
+}
