@@ -126,7 +126,7 @@ export const validateInput = (ev, field, error, setError = () => {}) => {
       validationObj = {
         isValid:
           isValidInput(inputElement, constantText.STRING) &&
-          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
+          /^[a-zA-Z.]{1,20}\@{1}[a-zA-Z]{0,10}\.[a-zA-Z]{2,3}$/.test(
             inputElement
           ),
         errorMessage: "Enter valid email",
