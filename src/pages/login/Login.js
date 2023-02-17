@@ -3,6 +3,7 @@ import { TextField } from "../../components/common/textField/TextField";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { validateInput } from "../../utils/Utils";
+import { notify } from "../../utils/services/notify/notify";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -16,7 +17,9 @@ export const Login = () => {
     if (error.default && Object.keys(error).length === 1) {
       const postData = formInput;
       console.log(postData);
+      return;
     }
+    notify.error("Enter valid inputs");
   };
 
   const onChangeHandler = (ev, field) => {
@@ -42,55 +45,61 @@ export const Login = () => {
 
   return (
     <>
-      <div className="signin-heading-container">
-        <h1 className="signin-heading">Sign in to your account</h1>
-        <div className="auth-input-container">
-          <TextField
-            label="Email"
-            placeholder="abc@yopmail.com"
-            type="email"
-            onChange={(ev) => onChangeHandler(ev, "email")}
-            value={formInput.email}
-            required={true}
-          />
+      <form
+        onSubmit={(ev) => {
+          ev.preventDefault();
+        }}
+      >
+        <div className="signin-heading-container">
+          <h1 className="signin-heading">Sign in to your account</h1>
+          <div className="auth-input-container">
+            <TextField
+              label="Email"
+              placeholder="abc@yopmail.com"
+              type="email"
+              onChange={(ev) => onChangeHandler(ev, "email")}
+              value={formInput.email}
+              required={true}
+            />
+          </div>
+          <div className="auth-input-container">
+            <TextField
+              label="Password"
+              placeholder="Enter password"
+              type="password"
+              onChange={(ev) => onChangeHandler(ev, "password")}
+              value={formInput.password}
+              required={true}
+            />
+          </div>
+          <p className="bottom-link">
+            <span
+              className="bottom-link-btn"
+              onClick={() => navigate("/forgotpassword")}
+            >
+              <u>
+                <strong>forgot password?</strong>
+              </u>
+            </span>
+          </p>
+          <div className="auth-btn-container">
+            <button onClick={onclickHandler} className="auth-btn-class">
+              <span>Sign in</span>
+            </button>
+          </div>
+          <p className="bottom-link">
+            <span
+              className="bottom-link-btn"
+              onClick={() => navigate("/registration")}
+            >
+              Don't have an account?
+              <u>
+                <strong> Sign up</strong>
+              </u>
+            </span>
+          </p>
         </div>
-        <div className="auth-input-container">
-          <TextField
-            label="Password"
-            placeholder="Enter password"
-            type="password"
-            onChange={(ev) => onChangeHandler(ev, "password")}
-            value={formInput.password}
-            required={true}
-          />
-        </div>
-        <p className="bottom-link">
-          <span
-            className="bottom-link-btn"
-            onClick={() => navigate("/forgotpassword")}
-          >
-            <u>
-              <strong>forgot password?</strong>
-            </u>
-          </span>
-        </p>
-        <div className="auth-btn-container">
-          <button onClick={onclickHandler} className="auth-btn-class">
-            <span>Sign in</span>
-          </button>
-        </div>
-        <p className="bottom-link">
-          <span
-            className="bottom-link-btn"
-            onClick={() => navigate("/registration")}
-          >
-            Don't have an account?
-            <u>
-              <strong> Sign up</strong>
-            </u>
-          </span>
-        </p>
-      </div>
+      </form>
     </>
   );
 };
