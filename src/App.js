@@ -4,6 +4,8 @@ import { appStorageService } from "./utils/services/storage/Storage";
 import { config } from "./utils/config/Config";
 import { CommonLoader } from "./components/common/Loader/Loader";
 import { AuthContext } from "./context";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const App = () => {
   const userDetails = appStorageService.local.get(config.appName);
@@ -15,6 +17,7 @@ export const App = () => {
     <AuthContext.Provider value={authContextValue}>
       <CommonLoader.Component />
       <Router />
+      <ToastContainer />
     </AuthContext.Provider>
   );
 };
