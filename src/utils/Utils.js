@@ -1,6 +1,7 @@
 import { config } from "./config/Config";
 import { appStorageService } from "./services/storage/Storage";
 import { constantText } from "./constants/ConstantText";
+import { omit } from "lodash";
 
 export const Logout = (callBack = () => {}) => {
   appStorageService.local.remove(config.appName);
@@ -104,16 +105,25 @@ export const isValidInput = (input, inputType) => {
   }
 };
 
-export const validateInput = (ev, field) => {
+export const validateInput = (ev, field, error, setError = () => {}) => {
   const inputElement = ev.target.value;
+  let validationObj = {};
+  let newObj = {};
   switch (field) {
     case "name":
-      return {
+      validationObj = {
         isValid: stringCount(inputElement).charactersNoSpaces > 8,
         errorMessage: "Name should be of minimum length 8 characters",
       };
+      if (!validationObj.isValid) {
+        setError({ ...error, name: false });
+      } else {
+        newObj = omit(error, "name");
+        setError({ ...newObj, default: true });
+      }
+      return validationObj;
     case "email":
-      return {
+      validationObj = {
         isValid:
           isValidInput(inputElement, constantText.STRING) &&
           /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
@@ -121,8 +131,15 @@ export const validateInput = (ev, field) => {
           ),
         errorMessage: "Enter valid email",
       };
+      if (!validationObj.isValid) {
+        setError({ ...error, email: false });
+      } else {
+        newObj = omit(error, "email");
+        setError({ ...newObj, default: true });
+      }
+      return validationObj;
     case "password":
-      return {
+      validationObj = {
         isValid:
           stringCount(inputElement).charactersNoSpaces > 8 &&
           stringCount(inputElement).charactersNoSpaces < 16 &&
@@ -132,7 +149,18 @@ export const validateInput = (ev, field) => {
         errorMessage:
           "Password must contain one digit from 1 to 9, one lowercase letter, one uppercase letter, one special character, no space, and it must be 8-16 characters long",
       };
+      if (!validationObj.isValid) {
+        setError({ ...error, password: false });
+      } else {
+        newObj = omit(error, "password");
+        setError({ ...newObj, default: true });
+      }
+      return validationObj;
     default:
-      return false;
+      setError({ ...error, default: false });
+      return {
+        isValid: false,
+        errorMessage: "Invalid input",
+      };
   }
 };

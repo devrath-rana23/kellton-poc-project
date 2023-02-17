@@ -11,10 +11,13 @@ export const Registration = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState({ default: false });
 
   const onclickHandler = async () => {
-    const postData = formInput;
-    console.log(postData);
+    if (error.default && Object.keys(error).length === 1) {
+      const postData = formInput;
+      console.log(postData);
+    }
   };
 
   const onChangeHandler = (ev, field) => {
@@ -24,8 +27,13 @@ export const Registration = () => {
         "error-message"
       )[0];
     errorMessageElement.style.display = "none";
-    if (!validateInput(ev, field).isValid) {
-      errorMessageElement.innerText = validateInput(ev, field).errorMessage;
+    if (!validateInput(ev, field, error, setError).isValid) {
+      errorMessageElement.innerText = validateInput(
+        ev,
+        field,
+        error,
+        setError
+      ).errorMessage;
       errorMessageElement.style.display = "block";
     }
     let formInputCopy = formInput;
