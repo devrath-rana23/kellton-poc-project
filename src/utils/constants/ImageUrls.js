@@ -10,7 +10,6 @@ const ImageUrls = {
   comingSoon: require("../../assets/images/coming-soon.svg").default,
   googleLogo: require("../../assets/images/google_logo.svg").default,
   logo: require("../../assets/images/logo.svg").default,
-  logoBig: require("../../assets/images/logo_big.svg").default,
 };
 
 export default ImageUrls;

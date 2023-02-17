@@ -5,11 +5,19 @@ import { useState } from "react";
 
 export const Forgotpassword = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [formInput, setFormInput] = useState({
+    email: "",
+  });
 
   const onclickHandler = async () => {
-    const postData = { email };
+    const postData = formInput;
     console.log(postData);
+  };
+
+  const onChangeHandler = (ev, field) => {
+    let formInputCopy = formInput;
+    formInputCopy = { ...formInputCopy, [field]: ev.target.value };
+    setFormInput(formInputCopy);
   };
 
   return (
@@ -23,8 +31,8 @@ export const Forgotpassword = () => {
         <div className="forgotpass-input-container">
           <TextField
             type="email"
-            onChange={(ev) => setEmail(ev.target.value)}
-            value={email}
+            onChange={(ev) => onChangeHandler(ev, "email")}
+            value={formInput.email}
             required={true}
             label="Email"
             placeholder="abc@yopmail.com"

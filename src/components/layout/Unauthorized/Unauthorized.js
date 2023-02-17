@@ -3,7 +3,6 @@ import ImageUrls from "../../../utils/constants/ImageUrls";
 import "./Unauthorized.css";
 
 export const Unauthorized = (props) => {
-  const { logoBig } = ImageUrls;
   return (
     <div className="authBody">
       <section className="leftSection"></section>
@@ -16,7 +15,7 @@ export const Unauthorized = (props) => {
         </section>
         <section className="logoSection">
           <figure className="logoContainer">
-            <img className="logo" src={logoBig} alt="logo" />
+            <img className="logo" src={ImageUrls.logo} alt="logo" />
           </figure>
         </section>
       </section>

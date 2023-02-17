@@ -5,13 +5,21 @@ import { useState } from "react";
 
 export const Registration = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formInput, setFormInput] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const onclickHandler = async () => {
-    const postData = { name, email, password };
+    const postData = formInput;
     console.log(postData);
+  };
+
+  const onChangeHandler = (ev, field) => {
+    let formInputCopy = formInput;
+    formInputCopy = { ...formInputCopy, [field]: ev.target.value };
+    setFormInput(formInputCopy);
   };
 
   return (
@@ -23,8 +31,8 @@ export const Registration = () => {
             label="Name"
             placeholder="Abd Sha"
             type="text"
-            onChange={(ev) => setName(ev.target.value)}
-            value={name}
+            onChange={(ev) => onChangeHandler(ev, "name")}
+            value={formInput.name}
             required={true}
           />
         </div>
@@ -33,8 +41,8 @@ export const Registration = () => {
             label="Email"
             placeholder="abc@yopmail.com"
             type="email"
-            onChange={(ev) => setEmail(ev.target.value)}
-            value={email}
+            onChange={(ev) => onChangeHandler(ev, "email")}
+            value={formInput.email}
             required={true}
           />
         </div>
@@ -43,8 +51,8 @@ export const Registration = () => {
             label="Password"
             placeholder="Enter password"
             type="password"
-            onChange={(ev) => setPassword(ev.target.value)}
-            value={password}
+            onChange={(ev) => onChangeHandler(ev, "password")}
+            value={formInput.password}
             required={true}
           />
         </div>
