@@ -25,3 +25,12 @@
 .h-5 {
   height: 1.25rem;
 }
+
+.error-message {
+  display: none;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: #f00;
+}

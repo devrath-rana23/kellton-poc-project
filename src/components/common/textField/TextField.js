@@ -10,7 +10,7 @@ export const TextField = ({
   placeholder = "",
 }) => {
   return (
-    <>
+    <div>
       {label && <label className="textfield-label-class">{label}</label>}
       <div className="textfield-div">
         <input
@@ -23,6 +23,7 @@ export const TextField = ({
           placeholder={placeholder}
         />
       </div>
-    </>
+      <span className="error-message"></span>
+    </div>
   );
 };

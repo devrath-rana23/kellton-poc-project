@@ -2,6 +2,7 @@ import "./Forgotpassword.css";
 import { TextField } from "../../components/common/textField/TextField";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { validateInput } from "../../utils/Utils";
 
 export const Forgotpassword = () => {
   const navigate = useNavigate();
@@ -15,8 +16,18 @@ export const Forgotpassword = () => {
   };
 
   const onChangeHandler = (ev, field) => {
+    const inputElement = ev.target.value;
+    const errorMessageElement =
+      ev.target.parentNode.parentNode.getElementsByClassName(
+        "error-message"
+      )[0];
+    errorMessageElement.style.display = "none";
+    if (!validateInput(ev, field).isValid) {
+      errorMessageElement.innerText = validateInput(ev, field).errorMessage;
+      errorMessageElement.style.display = "block";
+    }
     let formInputCopy = formInput;
-    formInputCopy = { ...formInputCopy, [field]: ev.target.value };
+    formInputCopy = { ...formInputCopy, [field]: inputElement };
     setFormInput(formInputCopy);
   };
 
