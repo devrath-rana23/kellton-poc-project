@@ -1,7 +1,6 @@
 import { config } from "./config/Config";
 import { appStorageService } from "./services/storage/Storage";
 import { constantText } from "./constants/ConstantText";
-import { omit } from "lodash";
 
 export const Logout = (callBack = () => {}) => {
   appStorageService.local.remove(config.appName);
@@ -105,62 +104,79 @@ export const isValidInput = (input, inputType) => {
   }
 };
 
-export const validateInput = (ev, field, error, setError = () => {}) => {
+export const validateInput = (
+  ev,
+  field,
+  error,
+  errorMessages,
+  setError = () => {},
+  setErrorMessages = () => {}
+) => {
   const inputElement = ev.target.value;
-  let validationObj = {};
-  let newObj = {};
+  let isValid = true;
   switch (field) {
     case "name":
-      validationObj = {
-        isValid: stringCount(inputElement).charactersNoSpaces > 8,
-        errorMessage: "Name should be of minimum length 8 characters",
-      };
-      if (!validationObj.isValid) {
+      isValid = stringCount(inputElement).charactersNoSpaces > 8;
+      if (!isValid) {
+        setError({ ...error, name: true });
+        setErrorMessages({
+          ...errorMessages,
+          name: constantText.NAME_VALIDATION_MESSAGE,
+        });
+      } else {
         setError({ ...error, name: false });
-      } else {
-        newObj = omit(error, "name");
-        setError({ ...newObj, default: true });
+        setErrorMessages({
+          ...errorMessages,
+          name: "",
+        });
       }
-      return validationObj;
+      return isValid;
     case "email":
-      validationObj = {
-        isValid:
-          isValidInput(inputElement, constantText.STRING) &&
-          /^[a-zA-Z.]{1,20}\@{1}[a-zA-Z]{0,10}\.[a-zA-Z]{2,3}$/.test(
-            inputElement
-          ),
-        errorMessage: "Enter valid email",
-      };
-      if (!validationObj.isValid) {
+      isValid =
+        isValidInput(inputElement, constantText.STRING) &&
+        /^[a-zA-Z.]{1,20}\@{1}[a-zA-Z]{0,10}\.[a-zA-Z]{2,3}$/.test(
+          inputElement
+        );
+      if (!isValid) {
+        setError({ ...error, email: true });
+        setErrorMessages({
+          ...errorMessages,
+          email: constantText.EMAIL_VALIDATION_MESSAGE,
+        });
+      } else {
         setError({ ...error, email: false });
-      } else {
-        newObj = omit(error, "email");
-        setError({ ...newObj, default: true });
+        setErrorMessages({
+          ...errorMessages,
+          email: "",
+        });
       }
-      return validationObj;
+      return isValid;
     case "password":
-      validationObj = {
-        isValid:
-          stringCount(inputElement).charactersNoSpaces > 8 &&
-          stringCount(inputElement).charactersNoSpaces < 16 &&
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(
-            inputElement
-          ),
-        errorMessage:
-          "Password must contain one digit from 1 to 9, one lowercase letter, one uppercase letter, one special character, no space, and it must be 8-16 characters long",
-      };
-      if (!validationObj.isValid) {
-        setError({ ...error, password: false });
+      isValid =
+        stringCount(inputElement).charactersNoSpaces > 8 &&
+        stringCount(inputElement).charactersNoSpaces < 16 &&
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(
+          inputElement
+        );
+      if (!isValid) {
+        setError({ ...error, password: true });
+        setErrorMessages({
+          ...errorMessages,
+          password: constantText.PASSWORD_VALIDATION_MESSAGE,
+        });
       } else {
-        newObj = omit(error, "password");
-        setError({ ...newObj, default: true });
+        setError({ ...error, password: false });
+        setErrorMessages({
+          ...errorMessages,
+          password: "",
+        });
       }
-      return validationObj;
+      return isValid;
     default:
-      setError({ ...error, default: false });
-      return {
-        isValid: false,
-        errorMessage: "Invalid input",
-      };
+      setError({ ...error });
+      setErrorMessages({
+        ...errorMessages,
+      });
+      break;
   }
 };

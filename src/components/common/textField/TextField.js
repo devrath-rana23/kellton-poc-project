@@ -8,6 +8,8 @@ export const TextField = ({
   addClass = "",
   required = false,
   placeholder = "",
+  hasError = false,
+  errorMessage = "",
 }) => {
   return (
     <div>
@@ -23,7 +25,7 @@ export const TextField = ({
           placeholder={placeholder}
         />
       </div>
-      <span className="error-message"></span>
+      {hasError && <span className="error-message">{errorMessage}</span>}
     </div>
   );
 };

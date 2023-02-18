@@ -4,41 +4,39 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { validateInput } from "../../utils/Utils";
 import { notify } from "../../utils/services/notify/notify";
+import { constantText } from "../../utils/constants/ConstantText";
 
 export const Registration = () => {
   const navigate = useNavigate();
+  const [errorMessages, setErrorMessages] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [formInput, setFormInput] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const [error, setError] = useState({ default: false });
+  const [error, setError] = useState({
+    name: false,
+    email: false,
+    password: false,
+  });
 
-  const onclickHandler = async () => {
-    if (error.default && Object.keys(error).length === 1) {
+  const onSubmitHandler = async (ev) => {
+    ev.preventDefault();
+    if (!Object.values(error).includes(true)) {
       const postData = formInput;
       console.log(postData);
       return;
     }
-    notify.error("Enter valid inputs");
+    notify.error(constantText.ENTER_VALID_INPUTS);
   };
 
   const onChangeHandler = (ev, field) => {
     const inputElement = ev.target.value;
-    const errorMessageElement =
-      ev.target.parentNode.parentNode.getElementsByClassName(
-        "error-message"
-      )[0];
-    errorMessageElement.style.display = "none";
-    if (!validateInput(ev, field, error, setError).isValid) {
-      errorMessageElement.innerText = validateInput(
-        ev,
-        field,
-        error,
-        setError
-      ).errorMessage;
-      errorMessageElement.style.display = "block";
-    }
+    validateInput(ev, field, error, errorMessages, setError, setErrorMessages);
     let formInputCopy = formInput;
     formInputCopy = { ...formInputCopy, [field]: inputElement };
     setFormInput(formInputCopy);
@@ -46,11 +44,7 @@ export const Registration = () => {
 
   return (
     <>
-      <form
-        onSubmit={(ev) => {
-          ev.preventDefault();
-        }}
-      >
+      <form onSubmit={(ev) => onSubmitHandler(ev)}>
         <div className="register-heading-container">
           <h1 className="register-heading">Register your account</h1>
           <div className="register-input-container">
@@ -61,6 +55,8 @@ export const Registration = () => {
               onChange={(ev) => onChangeHandler(ev, "name")}
               value={formInput.name}
               required={true}
+              hasError={error.name}
+              errorMessage={errorMessages.name}
             />
           </div>
           <div className="register-input-container">
@@ -71,6 +67,8 @@ export const Registration = () => {
               onChange={(ev) => onChangeHandler(ev, "email")}
               value={formInput.email}
               required={true}
+              hasError={error.email}
+              errorMessage={errorMessages.email}
             />
           </div>
           <div className="register-input-container">
@@ -81,10 +79,12 @@ export const Registration = () => {
               onChange={(ev) => onChangeHandler(ev, "password")}
               value={formInput.password}
               required={true}
+              hasError={error.password}
+              errorMessage={errorMessages.password}
             />
           </div>
           <div className="register-btn-container">
-            <button onClick={onclickHandler} className="register-btn-class">
+            <button className="register-btn-class">
               <span>Create account</span>
             </button>
           </div>
