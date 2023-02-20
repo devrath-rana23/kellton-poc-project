@@ -1,7 +1,7 @@
 .signin-heading-container {
   align-self: center;
   border-radius: 1.5rem;
-  box-shadow: rgb(0 0 0 / 10%) 0px 5px 15px;
+  box-shadow: 1px 1px 15px rgb(89, 88, 88);
   padding: 1rem;
   width: 100%;
   max-width: 20rem;
