@@ -18,7 +18,6 @@ body {
 .signInSection {
   display: flex;
   flex-direction: column;
-  margin-top: 232px;
 }
 
 .poc-heading-container {
