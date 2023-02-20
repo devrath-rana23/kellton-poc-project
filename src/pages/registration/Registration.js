@@ -5,21 +5,29 @@ import { useState } from "react";
 import { validateInput } from "../../utils/Utils";
 import { notify } from "../../utils/services/notify/notify";
 import { constantText } from "../../utils/constants/ConstantText";
+import DatePicker from "react-date-picker";
 
 export const Registration = () => {
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState({
-    name: "",
+    firstname: "",
+    lastname: "",
+    company: "",
     email: "",
     password: "",
   });
   const [formInput, setFormInput] = useState({
-    name: "",
+    firstname: "",
+    lastname: "",
+    company: "",
     email: "",
     password: "",
   });
   const [error, setError] = useState({
-    name: false,
+    firstname: false,
+    lastname: false,
+    company: "",
     email: false,
     password: false,
   });
@@ -42,6 +50,16 @@ export const Registration = () => {
     setFormInput(formInputCopy);
   };
 
+  const getPhoto = (ev) => {
+    let reader = new FileReader();
+    let file = ev.target.files[0];
+    reader.onloadend = () => {
+      console.log(reader.result);
+    };
+    const imageBlob = reader.readAsDataURL(file);
+    console.log(imageBlob);
+  };
+
   return (
     <>
       <form onSubmit={(ev) => onSubmitHandler(ev)}>
@@ -49,15 +67,58 @@ export const Registration = () => {
           <h1 className="register-heading">Register your account</h1>
           <div className="register-input-container">
             <TextField
-              label="Name"
+              label="First Name"
               placeholder="Abd Sha"
               type="text"
-              onChange={(ev) => onChangeHandler(ev, "name")}
-              value={formInput.name}
+              onChange={(ev) => onChangeHandler(ev, "firstname")}
+              value={formInput.firstname}
               required={true}
-              hasError={error.name}
-              errorMessage={errorMessages.name}
+              hasError={error.firstname}
+              errorMessage={errorMessages.firstname}
             />
+          </div>
+          <div className="register-input-container">
+            <TextField
+              label="Last Name"
+              placeholder="Abd Sha"
+              type="text"
+              onChange={(ev) => onChangeHandler(ev, "lastname")}
+              value={formInput.lastname}
+              required={true}
+              hasError={error.lastname}
+              errorMessage={errorMessages.lastname}
+            />
+          </div>
+          <div className="register-input-container">
+            <TextField
+              label="Company"
+              placeholder="Netflix"
+              type="text"
+              onChange={(ev) => onChangeHandler(ev, "company")}
+              value={formInput.company}
+              required={true}
+              hasError={error.company}
+              errorMessage={errorMessages.company}
+            />
+          </div>
+          <div className="register-input-container">
+            <div>
+              <label className="textfield-label-class">Date of Birth</label>
+              <DatePicker
+                value={dateOfBirth}
+                onChange={(date) => setDateOfBirth(date)}
+              />
+            </div>
+          </div>
+          <div className="register-input-container">
+            <div>
+              <label className="textfield-label-class">Company Logo</label>
+              <input
+                name="company_logo"
+                type="file"
+                onChange={(ev) => getPhoto(ev)}
+              />
+            </div>
           </div>
           <div className="register-input-container">
             <TextField
@@ -70,6 +131,14 @@ export const Registration = () => {
               hasError={error.email}
               errorMessage={errorMessages.email}
             />
+          </div>
+          <div className="register-input-container">
+            <div>
+              <select name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
           </div>
           <div className="register-input-container">
             <TextField
