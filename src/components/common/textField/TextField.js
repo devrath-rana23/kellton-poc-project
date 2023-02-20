@@ -17,7 +17,7 @@ export const TextField = ({
       <div className="textfield-div">
         <input
           type={type}
-          className={`textfield-input h-5 ${addClass}`}
+          className={`textfield-input ${addClass}`}
           value={value}
           onChange={onChange}
           required={required}

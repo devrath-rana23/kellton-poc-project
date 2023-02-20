@@ -9,6 +9,7 @@ import DatePicker from "react-date-picker";
 
 export const Registration = () => {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [imageBlob, setImageBlob] = useState("");
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState({
     firstname: "",
@@ -53,11 +54,12 @@ export const Registration = () => {
   const getPhoto = (ev) => {
     let reader = new FileReader();
     let file = ev.target.files[0];
-    reader.onloadend = () => {
-      console.log(reader.result);
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      // fileName: file.title,
+      // base64: reader.result
+      setImageBlob(reader.result);
     };
-    const imageBlob = reader.readAsDataURL(file);
-    console.log(imageBlob);
   };
 
   return (
@@ -114,10 +116,16 @@ export const Registration = () => {
             <div>
               <label className="textfield-label-class">Company Logo</label>
               <input
+                className="file-input"
                 name="company_logo"
                 type="file"
                 onChange={(ev) => getPhoto(ev)}
               />
+              {imageBlob && (
+                <div className="custom-thumbnail">
+                  <img src={imageBlob} alt="company_logo" />
+                </div>
+              )}
             </div>
           </div>
           <div className="register-input-container">
@@ -134,7 +142,7 @@ export const Registration = () => {
           </div>
           <div className="register-input-container">
             <div>
-              <select name="gender">
+              <select className="select-dropdown" name="gender">
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
