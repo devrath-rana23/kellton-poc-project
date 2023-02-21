@@ -7,6 +7,8 @@ import { Unauthorized } from "./components/layout/Unauthorized";
 import { Authorized } from "./components/layout/Authorized";
 import { Dashboard } from "./pages/dashboard/Dashboard";
 import { PageNotFound } from "./pages/PageNotFound/PageNotFound";
+import { EditProfile } from "./pages/profile/EditProfile";
+import { UploadForm } from "./pages/uploadform/UploadForm";
 
 export const Router = () => {
   return (
@@ -20,6 +22,8 @@ export const Router = () => {
         </Route>
         <Route element={<Authorized />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/upload-form" element={<UploadForm />} />
         </Route>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="*" element={<PageNotFound />} />

@@ -1,4 +1,10 @@
-.register-heading-container {
+.edit-profile-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.edit-profile-heading-container {
   align-self: center;
   border-radius: 1.5rem;
   box-shadow: 1px 1px 15px rgb(89, 88, 88);
@@ -7,7 +13,7 @@
   max-width: 20rem;
 }
 
-.register-heading {
+.edit-profile-heading {
   font-style: normal;
   font-weight: 700;
   font-size: 1.5rem;
@@ -17,11 +23,11 @@
   color: #111827;
 }
 
-.register-input-container {
+.edit-profile-input-container {
   margin-top: 1rem;
 }
 
-.register-btn-class {
+.edit-profile-btn-class {
   display: flex;
   padding: 0.625rem 1rem;
   border-width: 0;
@@ -34,7 +40,7 @@
   border-radius: 0.375rem;
 }
 
-.register-btn-container {
+.edit-profile-btn-container {
   margin-top: 1rem;
   display: flex;
   align-items: center;

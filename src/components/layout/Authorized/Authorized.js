@@ -7,9 +7,9 @@ import { Header } from "../../common/header/Header";
 
 export const Authorized = (props) => {
   const userDetails = appStorageService.local.get(config.appName);
-  if (!userDetails) {
-    return <Navigate to={"/login"} replace />;
-  }
+  // if (!userDetails) {
+  //   return <Navigate to={"/login"} replace />;
+  // }
 
   return (
     props.children ?? (

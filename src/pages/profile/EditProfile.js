@@ -1,4 +1,4 @@
-import "./Registration.css";
+import "./EditProfile.css";
 import { TextField } from "../../components/common/textField/TextField";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { notify } from "../../utils/services/notify/notify";
 import { constantText } from "../../utils/constants/ConstantText";
 import { DatePicker } from "../../components/common/datePicker/DatePicker";
 
-export const Registration = () => {
+export const EditProfile = () => {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [imageBlob, setImageBlob] = useState("");
   const navigate = useNavigate();
@@ -64,10 +64,10 @@ export const Registration = () => {
 
   return (
     <>
-      <form onSubmit={(ev) => onSubmitHandler(ev)}>
-        <div className="register-heading-container">
-          <h1 className="register-heading">Register your account</h1>
-          <div className="register-input-container flex-form">
+      <form className="edit-profile-form" onSubmit={(ev) => onSubmitHandler(ev)}>
+        <div className="edit-profile-heading-container">
+          <h1 className="edit-profile-heading">Profile</h1>
+          <div className="edit-profile-input-container flex-form">
             <TextField
               label="First Name"
               placeholder="Abd Sha"
@@ -89,7 +89,7 @@ export const Registration = () => {
               errorMessage={errorMessages.lastname}
             />
           </div>
-          <div className="register-input-container flex-form">
+          <div className="edit-profile-input-container flex-form">
             <TextField
               label="Company"
               placeholder="Netflix"
@@ -111,7 +111,7 @@ export const Registration = () => {
               errorMessage={errorMessages.password}
             />
           </div>
-          <div className="register-input-container">
+          <div className="edit-profile-input-container">
             <div>
               <DatePicker
                 label="Date of Birth"
@@ -121,25 +121,7 @@ export const Registration = () => {
               />
             </div>
           </div>
-          <div className="register-input-container">
-            <div>
-              <label className="textfield-label-class">Company Logo</label>
-              <div className="textfield-div">
-                <input
-                  className="file-input"
-                  name="company_logo"
-                  type="file"
-                  onChange={(ev) => getPhoto(ev)}
-                />
-              </div>
-              {imageBlob && (
-                <div className="custom-thumbnail">
-                  <img src={imageBlob} alt="company_logo" />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="register-input-container">
+          <div className="edit-profile-input-container">
             <TextField
               label="Email"
               placeholder="abc@yopmail.com"
@@ -151,7 +133,7 @@ export const Registration = () => {
               errorMessage={errorMessages.email}
             />
           </div>
-          <div className="register-input-container">
+          <div className="edit-profile-input-container">
             <div>
               <label className="textfield-label-class">Gender</label>
               <div className="select-div">
@@ -162,22 +144,11 @@ export const Registration = () => {
               </div>
             </div>
           </div>
-          <div className="register-btn-container">
-            <button className="register-btn-class">
-              <span>Create account</span>
+          <div className="edit-profile-btn-container">
+            <button className="edit-profile-btn-class">
+              <span>Save</span>
             </button>
           </div>
-          <p className="bottom-link">
-            <span
-              className="bottom-link-btn"
-              onClick={() => navigate("/login")}
-            >
-              Already have an account?
-              <u>
-                <strong> Sign in</strong>
-              </u>
-            </span>
-          </p>
         </div>
       </form>
     </>
