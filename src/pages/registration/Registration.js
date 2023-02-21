@@ -67,7 +67,7 @@ export const Registration = () => {
       <form onSubmit={(ev) => onSubmitHandler(ev)}>
         <div className="register-heading-container">
           <h1 className="register-heading">Register your account</h1>
-          <div className="register-input-container">
+          <div className="register-input-container flex-form">
             <TextField
               label="First Name"
               placeholder="Abd Sha"
@@ -78,8 +78,6 @@ export const Registration = () => {
               hasError={error.firstname}
               errorMessage={errorMessages.firstname}
             />
-          </div>
-          <div className="register-input-container">
             <TextField
               label="Last Name"
               placeholder="Abd Sha"
@@ -91,7 +89,7 @@ export const Registration = () => {
               errorMessage={errorMessages.lastname}
             />
           </div>
-          <div className="register-input-container">
+          <div className="register-input-container flex-form">
             <TextField
               label="Company"
               placeholder="Netflix"
@@ -102,25 +100,40 @@ export const Registration = () => {
               hasError={error.company}
               errorMessage={errorMessages.company}
             />
+            <TextField
+              label="Password"
+              placeholder="Enter password"
+              type="password"
+              onChange={(ev) => onChangeHandler(ev, "password")}
+              value={formInput.password}
+              required={true}
+              hasError={error.password}
+              errorMessage={errorMessages.password}
+            />
           </div>
           <div className="register-input-container">
             <div>
               <label className="textfield-label-class">Date of Birth</label>
-              <DatePicker
-                value={dateOfBirth}
-                onChange={(date) => setDateOfBirth(date)}
-              />
+              <div className="datepicker-div">
+                <DatePicker
+                  className={`datepicker-class`}
+                  value={dateOfBirth}
+                  onChange={(date) => setDateOfBirth(date)}
+                />
+              </div>
             </div>
           </div>
           <div className="register-input-container">
             <div>
               <label className="textfield-label-class">Company Logo</label>
-              <input
-                className="file-input"
-                name="company_logo"
-                type="file"
-                onChange={(ev) => getPhoto(ev)}
-              />
+              <div className="textfield-div">
+                <input
+                  className="file-input"
+                  name="company_logo"
+                  type="file"
+                  onChange={(ev) => getPhoto(ev)}
+                />
+              </div>
               {imageBlob && (
                 <div className="custom-thumbnail">
                   <img src={imageBlob} alt="company_logo" />
@@ -142,23 +155,14 @@ export const Registration = () => {
           </div>
           <div className="register-input-container">
             <div>
-              <select className="select-dropdown" name="gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
+              <label className="textfield-label-class">Gender</label>
+              <div className="select-div">
+                <select className="select-dropdown" name="gender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div className="register-input-container">
-            <TextField
-              label="Password"
-              placeholder="Enter password"
-              type="password"
-              onChange={(ev) => onChangeHandler(ev, "password")}
-              value={formInput.password}
-              required={true}
-              hasError={error.password}
-              errorMessage={errorMessages.password}
-            />
           </div>
           <div className="register-btn-container">
             <button className="register-btn-class">

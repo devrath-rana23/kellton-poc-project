@@ -4,7 +4,7 @@
   box-shadow: 1px 1px 15px rgb(89, 88, 88);
   padding: 1rem;
   width: 100%;
-  max-width: 20rem;
+  max-width: 26rem;
 }
 
 .register-heading {
@@ -62,12 +62,19 @@
 }
 
 .file-input {
-  cursor: pointer;
   padding: 0.75rem;
   text-align: left;
-  width: 91%;
+  width: 100%;
   border-radius: 0.375rem;
   border: thin solid gray;
+  outline: 0;
+  height: 1.25rem;
+}
+
+.select-div {
+  display: flex;
+  position: relative;
+  width: 100%;
 }
 
 .select-dropdown {
@@ -77,12 +84,31 @@
   border-radius: 0.375rem;
   border: thin solid gray;
   outline: 0;
+  height: 2.85rem;
   background: #fff;
 }
 
 .react-date-picker__wrapper {
-  cursor: pointer;
+  border-width: 0 !important;
+}
+
+.datepicker-class {
   padding: 0.75rem;
-  min-width: 173%;
+  text-align: left;
   border-radius: 0.375rem;
+  border: thin solid gray;
+  outline: 0;
+  background: #fff;
+  width: 100%;
+}
+
+.datepicker-div {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.flex-form {
+  display: flex;
+  gap: 1rem;
 }
