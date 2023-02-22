@@ -32,7 +32,12 @@ export const Header = () => {
         </div>
       </nav>
       <figure>
-        <img className="header-logo" src={ImageUrls.logo} alt="" />
+        <img
+          onClick={() => navigate("/dashboard")}
+          className="header-logo"
+          src={ImageUrls.logo}
+          alt=""
+        />
       </figure>
       <Menu as={`div`} className="header-avatar-container">
         <figure className="header-profile-pic-container">
@@ -84,7 +89,11 @@ export const Header = () => {
                     >
                       <img
                         className="logout-logo-icon"
-                        src={ImageUrls.logout_icon}
+                        src={
+                          active
+                            ? ImageUrls.reset_password_blue
+                            : ImageUrls.reset_password
+                        }
                         alt=""
                       />
                       <span>Change password</span>
@@ -103,7 +112,7 @@ export const Header = () => {
                     >
                       <img
                         className="logout-logo-icon"
-                        src={ImageUrls.logout_icon}
+                        src={active ? ImageUrls.logout_blue : ImageUrls.logout}
                         alt=""
                       />
                       <span>Logout</span>

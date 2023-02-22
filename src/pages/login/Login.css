@@ -14,7 +14,7 @@
   line-height: 2rem;
   text-align: center;
   margin-bottom: 2rem;
-  color: #111827;
+  color: #000;
 }
 
 .auth-input-container {
@@ -26,12 +26,13 @@
   padding: 0.625rem 1rem;
   border-width: 0;
   cursor: pointer;
-  background-color: #00b6d9;
+  background-color: #0d769d;
   font-weight: 500;
   justify-content: center;
   align-items: center;
   width: 9rem;
   border-radius: 0.375rem;
+  color: #fff;
 }
 
 .auth-btn-container {
