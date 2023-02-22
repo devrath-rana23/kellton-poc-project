@@ -115,22 +115,59 @@ export const validateInput = (
   const inputElement = ev.target.value;
   let isValid = true;
   switch (field) {
-    case "name":
+    case "firstname":
       isValid = stringCount(inputElement).charactersNoSpaces > 8;
       if (!isValid) {
-        setError({ ...error, name: true });
+        setError({ ...error, firstname: true });
         setErrorMessages({
           ...errorMessages,
-          name: constantText.NAME_VALIDATION_MESSAGE,
+          firstname: constantText.FIRST_NAME_VALIDATION_MESSAGE,
         });
       } else {
-        setError({ ...error, name: false });
+        setError({ ...error, firstname: false });
         setErrorMessages({
           ...errorMessages,
-          name: "",
+          firstname: "",
         });
       }
       return isValid;
+    case "lastname":
+      isValid = stringCount(inputElement).charactersNoSpaces > 8;
+      if (!isValid) {
+        setError({ ...error, lastname: true });
+        setErrorMessages({
+          ...errorMessages,
+          lastname: constantText.LAST_NAME_VALIDATION_MESSAGE,
+        });
+      } else {
+        setError({ ...error, lastname: false });
+        setErrorMessages({
+          ...errorMessages,
+          lastname: "",
+        });
+      }
+      return isValid;
+    case "company":
+      isValid = stringCount(inputElement).charactersNoSpaces > 8;
+      if (!isValid) {
+        setError({ ...error, company: true });
+        setErrorMessages({
+          ...errorMessages,
+          company: constantText.COMPANY_NAME_VALIDATION_MESSAGE,
+        });
+      } else {
+        setError({ ...error, company: false });
+        setErrorMessages({
+          ...errorMessages,
+          company: "",
+        });
+      }
+      return isValid;
+    case "company_logo":
+      const inputFile = ev.target.files[0];
+
+      console.log(inputFile);
+      return;
     case "email":
       isValid =
         isValidInput(inputElement, constantText.STRING) &&

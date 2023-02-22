@@ -8,7 +8,6 @@ import { constantText } from "../../utils/constants/ConstantText";
 import { DatePicker } from "../../components/common/datePicker/DatePicker";
 
 export const Registration = () => {
-  const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [imageBlob, setImageBlob] = useState("");
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState({
@@ -17,6 +16,7 @@ export const Registration = () => {
     company: "",
     email: "",
     password: "",
+    company_logo: "",
   });
   const [formInput, setFormInput] = useState({
     firstname: "",
@@ -24,13 +24,17 @@ export const Registration = () => {
     company: "",
     email: "",
     password: "",
+    date_of_birth: "",
+    company_logo: "",
+    gender: "",
   });
   const [error, setError] = useState({
     firstname: false,
     lastname: false,
-    company: "",
+    company: false,
     email: false,
     password: false,
+    company_logo: false,
   });
 
   const onSubmitHandler = async (ev) => {
@@ -45,13 +49,30 @@ export const Registration = () => {
 
   const onChangeHandler = (ev, field) => {
     const inputElement = ev.target.value;
-    validateInput(ev, field, error, errorMessages, setError, setErrorMessages);
+    if (field !== "date_of_birth" || field !== "gender") {
+      validateInput(
+        ev,
+        field,
+        error,
+        errorMessages,
+        setError,
+        setErrorMessages
+      );
+    }
     let formInputCopy = formInput;
     formInputCopy = { ...formInputCopy, [field]: inputElement };
     setFormInput(formInputCopy);
   };
 
   const getPhoto = (ev) => {
+    validateInput(
+      ev,
+      "company_logo",
+      error,
+      errorMessages,
+      setError,
+      setErrorMessages
+    );
     let reader = new FileReader();
     let file = ev.target.files[0];
     reader.readAsDataURL(file);
@@ -60,6 +81,9 @@ export const Registration = () => {
       // base64: reader.result
       setImageBlob(reader.result);
     };
+    let formInputCopy = formInput;
+    formInputCopy = { ...formInputCopy, company_logo: file };
+    setFormInput(formInputCopy);
   };
 
   return (
@@ -115,7 +139,7 @@ export const Registration = () => {
             <div>
               <DatePicker
                 label="Date of Birth"
-                value={dateOfBirth}
+                value={formInput.date_of_birth}
                 onChange={(ev) => onChangeHandler(ev, "date_of_birth")}
                 required={false}
               />
@@ -155,7 +179,11 @@ export const Registration = () => {
             <div>
               <label className="textfield-label-class">Gender</label>
               <div className="select-div">
-                <select className="select-dropdown" name="gender">
+                <select
+                  className="select-dropdown"
+                  onChange={(ev) => onChangeHandler(ev, "gender")}
+                  name="gender"
+                >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
